@@ -1,0 +1,73 @@
+<html>
+
+<head>
+  <title>Carousel Example</title>
+</head>
+<style>
+  .carousel {
+    width: 100%;
+    text-align: center;
+  }
+
+  .carousel_container {
+    overflow: hidden;
+    width: 300px;
+    margin: 0 auto;
+  }
+
+  .content_container_list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 300%;
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .content_container_list_item {
+    flex: 1;
+    text-align: center;
+    padding: 20px;
+  }
+</style>
+
+<body>
+  <div class="carousel">
+    <h1>Carousel with pure HTML, CSS, and JavaScript example</h1>
+    <div id="carouselContainer" class="carousel_container">
+      <ul id="contentContainerList" class="content_container_list"></ul>
+    </div>
+  </div>  
+</body>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const listItems = ['Item 1', 'Item 2', 'Item 3']; // Replace with your dynamic data
+
+    const listContainer = document.getElementById('contentContainerList');
+    for (var i = 0; i < listItems.length; i++) {
+      var listItem = document.createElement('li');
+      listItem.className = 'content_container_list_item';
+      listItem.textContent = listItems[i];
+      listContainer.appendChild(listItem);
+    }
+
+    const carouselContainer = document.getElementById('carouselContainer');
+    const itemWidth = carouselContainer.offsetWidth;
+    let currentIndex = 0;
+
+    function slideTo(index) {
+      if (index >= 0 && index < listItems.length) {
+        currentIndex = index;
+        const transformValue = -currentIndex * itemWidth;
+        listContainer.style.transform = 'translateX(' + transformValue + 'px)';
+      }
+    }
+
+    setInterval(function() {
+      currentIndex = (currentIndex + 1) % listItems.length;
+      slideTo(currentIndex);
+    }, 3000);
+  });
+</script>
+
+</html>
